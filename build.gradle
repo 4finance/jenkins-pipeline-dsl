@@ -4,6 +4,7 @@ plugins {
 
 apply plugin: 'groovy'
 apply plugin: 'nebula.provided-base'
+apply plugin: 'maven'
 
 repositories {
     maven { url 'http://repo.jenkins-ci.org/releases/' }
