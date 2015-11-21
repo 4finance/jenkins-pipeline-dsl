@@ -10,11 +10,19 @@ abstract class JobDefinition<T extends Job, P extends Project> implements JobRef
     abstract Class<T> getJobClass()
 
     JobType getJobType() {
-        return new JobType(camelCaseToJobTypeFormat(this.class.simpleName))
+        return new JobType(toJobTypeFromUpperCamel(this.class.simpleName))
     }
 
-    protected final String camelCaseToJobTypeFormat(String camelCase) {
-        def type = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, camelCase)
+    protected final String toJobTypeFromUpperCamel(String camelCase) {
+        return toJobTypeFormatFrom(CaseFormat.UPPER_CAMEL, camelCase)
+    }
+
+    protected final String toJobTypeFromUpperUnderscore(String snakeCase) {
+        return toJobTypeFormatFrom(CaseFormat.UPPER_UNDERSCORE, snakeCase)
+    }
+
+    private String toJobTypeFormatFrom(CaseFormat caseFormat, String snakeCase) {
+        def type = caseFormat.to(CaseFormat.LOWER_UNDERSCORE, snakeCase)
         return type.replaceAll('_', JOB_TYPE_FRAGMENT_SEPARATOR)
     }
 

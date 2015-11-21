@@ -33,7 +33,10 @@ class PipelineBuilder<P extends Project> {
     private class StageContext {
         private String stageName
 
-        void job(JobDefinition<? extends Job, P> jobDefinition) {
+        //TODO use the P type instead of ? extends Project in a way that does not trigger type warnings in IDEA
+        //(probably impossible without Groovy 2.4)
+        //TODO in the meantime, maybe inspect he generic type in runtime and fail fast?
+        void job(JobDefinition<? extends Job, ? extends Project> jobDefinition) {
             List<JobType> jobTypesForThisStage = stages[stageName]*.jobType
             assert !jobTypesForThisStage.contains(jobDefinition.jobType),
                     "Attempted to define the same job twice in a single stage." +
