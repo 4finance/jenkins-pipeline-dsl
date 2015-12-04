@@ -1,17 +1,14 @@
 package com.ofg.pipeline.core
 
-import com.google.common.base.Optional
 import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
 
-import static com.google.common.base.Optional.fromNullable
-
 class PipelineBuilder<P extends Project> {
 
-    private final Map<String, List<JobRef<P>>> stages = [:]
-    private final List<JobChain<P>> chains = []
     private final JobBuilder<P> jobBuilder
+    private final Map<JobRef<? extends Project>, String> stageNamesForJobs = [:]
     private final StageNameConfigurer stageNameConfigurer
+    private final List<JobChain<P>> chains = []
 
     PipelineBuilder(DslFactory dslFactory, JobConfigurer<P> jobConfigurer, StageNameConfigurer stageNameConfigurer) {
         this.jobBuilder = new JobBuilder<>(dslFactory, jobConfigurer)
@@ -24,8 +21,6 @@ class PipelineBuilder<P extends Project> {
     }
 
     void stage(String stageName, @DelegatesTo(StageContext) closure) {
-        assert !stages.containsKey(stageName), "Attempted to define a stage twice. Stage name: [$stageName]"
-        stages[stageName] = []
         def stageContext = new StageContext(stageName: stageName)
         stageContext.with(closure)
     }
@@ -37,12 +32,8 @@ class PipelineBuilder<P extends Project> {
         //(probably impossible without Groovy 2.4)
         //TODO in the meantime, maybe inspect he generic type in runtime and fail fast?
         void job(JobDefinition<? extends Job, ? extends Project> jobDefinition) {
-            List<JobType> jobTypesForThisStage = stages[stageName]*.jobType
-            assert !jobTypesForThisStage.contains(jobDefinition.jobType),
-                    "Attempted to define the same job twice in a single stage." +
-                    " Stage: [$stageName], type: [${jobDefinition.jobType}], class: [${jobDefinition.class}]."
             jobBuilder.job(jobDefinition)
-            stages[stageName].add(jobDefinition)
+            stageNamesForJobs[jobDefinition] = stageName
         }
     }
 
@@ -58,9 +49,9 @@ class PipelineBuilder<P extends Project> {
     List<? extends Job> buildJobs(P project, JenkinsVariables jenkinsVariables) {
         Map<JobType, Job> dslJobs = jobBuilder.jobs.collectEntries { JobType jobType, JobDefinition jobDefinition ->
             def dslJob = jobBuilder.buildJob(jobDefinition, project, jenkinsVariables)
-            def stageName = findStageName(jobDefinition)
-            if (stageName.isPresent()) {
-                stageNameConfigurer.configure(dslJob, stageName.get(), jobDefinition.jobLabel)
+            def stageName = stageNamesForJobs[jobDefinition]
+            if (stageName) {
+                stageNameConfigurer.configure(dslJob, stageName, jobDefinition.jobLabel)
             }
             [jobType, dslJob]
         }
@@ -68,14 +59,6 @@ class PipelineBuilder<P extends Project> {
             it.linkJobs(dslJobs, project)
         }
         return dslJobs.values().toList()
-    }
-
-    private Optional<String> findStageName(JobDefinition jobDefinition) {
-        def entry = stages.find {
-            def stageJobTypes = it.value*.jobType
-            stageJobTypes.contains(jobDefinition.jobType)
-        }
-        return fromNullable(entry?.key)
     }
 }
 
