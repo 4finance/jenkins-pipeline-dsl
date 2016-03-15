@@ -10,7 +10,7 @@ public class AutoLink<P extends Project> extends AbstractPublishersFocusedJobCha
 
     private final TriggerCondition triggerCondition
     private final Map<String, String> predefinedProperties
-    private final List<String> propertiesFileNames
+    private final String propertiesFileName
 
     static <P extends Project> AutoLink<P> auto(
             JobRef<P> to,
@@ -19,11 +19,11 @@ public class AutoLink<P extends Project> extends AbstractPublishersFocusedJobCha
         new AutoLink<P>(to, triggerCondition, [:], [])
     }
 
-    private AutoLink(JobRef<P> to, TriggerCondition triggerCondition, Map<String, String> predefinedProperties, List<String> propertiesFileNames) {
+    private AutoLink(JobRef<P> to, TriggerCondition triggerCondition, Map<String, String> predefinedProperties, String propertiesFileName) {
         super(to)
         this.triggerCondition = triggerCondition
         this.predefinedProperties = predefinedProperties
-        this.propertiesFileNames = propertiesFileNames
+        this.propertiesFileName = propertiesFileName
     }
 
     AutoLink<P> withPredefinedProperties(Variable... predefinedProperties) {
@@ -32,11 +32,11 @@ public class AutoLink<P extends Project> extends AbstractPublishersFocusedJobCha
     }
 
     AutoLink<P> withPredefinedProperties(Map<String, String> predefinedProperties) {
-        return new AutoLink<P>(end, triggerCondition, predefinedProperties, propertiesFileNames)
+        return new AutoLink<P>(end, triggerCondition, predefinedProperties, null)
     }
 
-    AutoLink<P> withPropertiesFiles(String... propertiesFileNames) {
-        return new AutoLink<P>(end, triggerCondition, predefinedProperties, propertiesFileNames.toList())
+    AutoLink<P> withPropertiesFiles(String... propertiesFileName) {
+        return new AutoLink<P>(end, triggerCondition, predefinedProperties, propertiesFileName)
     }
 
     @Override
@@ -48,8 +48,8 @@ public class AutoLink<P extends Project> extends AbstractPublishersFocusedJobCha
                         if (predefinedProperties) {
                             predefinedProps(predefinedProperties)
                         }
-                        propertiesFileNames.each {
-                            propertiesFile(it)
+                        if (propertiesFileName) {
+                            propertiesFile(propertiesFileName)
                         }
                         currentBuild()
                         sameNode()
