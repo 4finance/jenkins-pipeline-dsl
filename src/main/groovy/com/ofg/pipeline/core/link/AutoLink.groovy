@@ -44,15 +44,19 @@ public class AutoLink<P extends Project> extends AbstractPublishersFocusedJobCha
         return {
             (delegate as PublisherContext).with {
                 downstreamParameterized {
-                    trigger(linkEndJobName, triggerCondition.name(), true) {
-                        if (predefinedProperties) {
-                            predefinedProps(predefinedProperties)
+                    trigger(linkEndJobName) {
+                        condition(triggerCondition.name())
+                        triggerWithNoParameters()
+                        parameters {
+                            currentBuild()
+                            sameNode()
+                            if (predefinedProperties) {
+                                predefinedProps(predefinedProperties)
+                            }
+                            if (propertiesFileName) {
+                                propertiesFile(propertiesFileName)
+                            }
                         }
-                        if (propertiesFileName) {
-                            propertiesFile(propertiesFileName)
-                        }
-                        currentBuild()
-                        sameNode()
                     }
                 }
             }
