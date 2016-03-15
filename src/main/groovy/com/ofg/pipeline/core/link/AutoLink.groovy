@@ -16,7 +16,7 @@ public class AutoLink<P extends Project> extends AbstractPublishersFocusedJobCha
             JobRef<P> to,
             TriggerCondition triggerCondition = TriggerCondition.SUCCESS
     ) {
-        new AutoLink<P>(to, triggerCondition, [:], [])
+        new AutoLink<P>(to, triggerCondition, [:], null)
     }
 
     private AutoLink(JobRef<P> to, TriggerCondition triggerCondition, Map<String, String> predefinedProperties, String propertiesFileName) {
