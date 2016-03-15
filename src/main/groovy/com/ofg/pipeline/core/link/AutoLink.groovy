@@ -35,7 +35,7 @@ public class AutoLink<P extends Project> extends AbstractPublishersFocusedJobCha
         return new AutoLink<P>(end, triggerCondition, predefinedProperties, null)
     }
 
-    AutoLink<P> withPropertiesFiles(String propertiesFileName) {
+    AutoLink<P> withPropertiesFile(String propertiesFileName) {
         return new AutoLink<P>(end, triggerCondition, predefinedProperties, propertiesFileName)
     }
 
