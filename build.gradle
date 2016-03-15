@@ -14,7 +14,7 @@ repositories {
 
 ext {
     jenkinsVersion = '1.609.2'
-    jobDslVersion = '1.37'
+    jobDslVersion = '1.44'
 }
 
 group = "io.fourfinanceit.pipeline"
