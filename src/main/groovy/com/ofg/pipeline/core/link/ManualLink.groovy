@@ -21,7 +21,6 @@ public class ManualLink<P extends Project> extends AbstractPublishersFocusedJobC
                 buildPipelineTrigger(linkEndJobName) {
                     parameters {
                         currentBuild()
-                        sameNode()
                     }
                 }
             }

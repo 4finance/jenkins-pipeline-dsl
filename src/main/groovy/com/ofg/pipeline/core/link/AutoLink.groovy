@@ -52,7 +52,6 @@ public class AutoLink<P extends Project> extends AbstractPublishersFocusedJobCha
                             propertiesFile(propertiesFileName)
                         }
                         currentBuild()
-                        sameNode()
                     }
                 }
             }
