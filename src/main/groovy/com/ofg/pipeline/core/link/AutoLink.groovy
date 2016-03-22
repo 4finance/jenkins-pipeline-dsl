@@ -49,7 +49,6 @@ public class AutoLink<P extends Project> extends AbstractPublishersFocusedJobCha
                         triggerWithNoParameters()
                         parameters {
                             currentBuild()
-                            sameNode()
                             if (predefinedProperties) {
                                 predefinedProps(predefinedProperties)
                             }
