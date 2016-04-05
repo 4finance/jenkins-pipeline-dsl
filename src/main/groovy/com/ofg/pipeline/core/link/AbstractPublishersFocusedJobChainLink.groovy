@@ -8,10 +8,14 @@ import static com.google.common.base.Preconditions.checkNotNull
 
 abstract class AbstractPublishersFocusedJobChainLink<P extends Project> implements JobChainLink<P> {
 
-    private final JobRef<P> to
+    protected final static boolean ON_SAME_NODE_DISABLED = false
 
-    protected AbstractPublishersFocusedJobChainLink(JobRef<P> to) {
+    private final JobRef<P> to
+    protected final boolean onSameNode
+
+    protected AbstractPublishersFocusedJobChainLink(JobRef<P> to, boolean onSameNode) {
         this.to = checkNotNull(to)
+        this.onSameNode = onSameNode
     }
 
     @Override

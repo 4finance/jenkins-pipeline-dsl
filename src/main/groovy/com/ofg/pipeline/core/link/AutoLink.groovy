@@ -6,7 +6,7 @@ import com.ofg.pipeline.core.TriggerCondition
 import com.ofg.pipeline.core.Variable
 import javaposse.jobdsl.dsl.helpers.publisher.PublisherContext
 
-public class AutoLink<P extends Project> extends AbstractPublishersFocusedJobChainLink<P> {
+class AutoLink<P extends Project> extends AbstractPublishersFocusedJobChainLink<P> {
 
     private final TriggerCondition triggerCondition
     private final Map<String, String> predefinedProperties
@@ -16,11 +16,12 @@ public class AutoLink<P extends Project> extends AbstractPublishersFocusedJobCha
             JobRef<P> to,
             TriggerCondition triggerCondition = TriggerCondition.SUCCESS
     ) {
-        new AutoLink<P>(to, triggerCondition, [:], null)
+        new AutoLink<P>(to, triggerCondition, [:], null, ON_SAME_NODE_DISABLED)
     }
 
-    private AutoLink(JobRef<P> to, TriggerCondition triggerCondition, Map<String, String> predefinedProperties, String propertiesFileName) {
-        super(to)
+    private AutoLink(JobRef<P> to, TriggerCondition triggerCondition, Map<String, String> predefinedProperties, String propertiesFileName,
+                     boolean onSameNode) {
+        super(to, onSameNode)
         this.triggerCondition = triggerCondition
         this.predefinedProperties = predefinedProperties
         this.propertiesFileName = propertiesFileName
@@ -32,11 +33,15 @@ public class AutoLink<P extends Project> extends AbstractPublishersFocusedJobCha
     }
 
     AutoLink<P> withPredefinedProperties(Map<String, String> predefinedProperties) {
-        return new AutoLink<P>(end, triggerCondition, predefinedProperties, null)
+        return new AutoLink<P>(end, triggerCondition, predefinedProperties, propertiesFileName, onSameNode)
     }
 
     AutoLink<P> withPropertiesFile(String propertiesFileName) {
-        return new AutoLink<P>(end, triggerCondition, predefinedProperties, propertiesFileName)
+        return new AutoLink<P>(end, triggerCondition, predefinedProperties, propertiesFileName, onSameNode)
+    }
+
+    AutoLink<P> onSameNode(boolean onSameNode = true) {
+        return new AutoLink<P>(end, triggerCondition, predefinedProperties, propertiesFileName, onSameNode)
     }
 
     @Override
@@ -49,6 +54,9 @@ public class AutoLink<P extends Project> extends AbstractPublishersFocusedJobCha
                         triggerWithNoParameters()
                         parameters {
                             currentBuild()
+                            if (onSameNode) {
+                                sameNode()
+                            }
                             if (predefinedProperties) {
                                 predefinedProps(predefinedProperties)
                             }
@@ -62,5 +70,3 @@ public class AutoLink<P extends Project> extends AbstractPublishersFocusedJobCha
         }
     }
 }
-
-
