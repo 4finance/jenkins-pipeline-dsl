@@ -1,0 +1,13 @@
+sudo: false
+
+language: groovy
+
+jdk:
+- oraclejdk7
+- oraclejdk8
+
+install:
+- ./gradlew assemble --stacktrace
+
+script:
+- ./gradlew build --stacktrace --continue
