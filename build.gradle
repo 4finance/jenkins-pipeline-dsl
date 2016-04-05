@@ -35,7 +35,6 @@ bintray {
         vcsUrl = 'https://github.com/4finance/jenkins-pipeline-dsl.git'
         labels = ['jenkins', 'pipeline', 'ci', 'cd', 'continuous-integration', 'continuous-delivery']
     }
-    publish = true
 }
 
 apply plugin: 'nebula.provided-base'
