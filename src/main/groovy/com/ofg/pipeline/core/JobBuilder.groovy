@@ -35,9 +35,9 @@ class JobBuilder<P extends Project> {
     protected <T extends Job> T buildJob(JobDefinition<T, P> jobDefinition, P project, JenkinsVariables jenkinsVariables) {
         def jobName = jobDefinition.getJobName(project)
         def dslJob = jobFactory.create(jobDefinition.jobClass, jobName)
-        jobConfigurer.preConfigure(dslJob, project)
+        jobConfigurer.preConfigure(dslJob, project, jenkinsVariables)
         jobDefinition.configure(dslJob, project, jenkinsVariables)
-        jobConfigurer.postConfigure(dslJob, project)
+        jobConfigurer.postConfigure(dslJob, project, jenkinsVariables)
         return dslJob
     }
 
