@@ -14,15 +14,19 @@ class ManualLink<P extends Project> extends AbstractPublishersFocusedJobChainLin
         super(to, onSameNode)
     }
 
+    private ManualLink(List<JobRef<P>> to, boolean onSameNode) {
+        super(to, onSameNode)
+    }
+
     ManualLink<P> onSameNode(boolean onSameNode = true) {
         return new ManualLink<P>(end, onSameNode)
     }
 
     @Override
-    Closure publisherClosureFor(String linkEndJobName) {
+    Closure publisherClosureFor(String linkEndJobsName) {
         return {
             (delegate as PublisherContext).with {
-                buildPipelineTrigger(linkEndJobName) {
+                buildPipelineTrigger(linkEndJobsName) {
                     parameters {
                         currentBuild()
                         if (onSameNode) {

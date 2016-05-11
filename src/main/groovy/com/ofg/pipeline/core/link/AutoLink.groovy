@@ -45,11 +45,11 @@ class AutoLink<P extends Project> extends AbstractPublishersFocusedJobChainLink<
     }
 
     @Override
-    Closure publisherClosureFor(String linkEndJobName) {
+    Closure publisherClosureFor(String linkEndJobsName) {
         return {
             (delegate as PublisherContext).with {
                 downstreamParameterized {
-                    trigger(linkEndJobName) {
+                    trigger(linkEndJobsName) {
                         condition(triggerCondition.name())
                         triggerWithNoParameters()
                         parameters {

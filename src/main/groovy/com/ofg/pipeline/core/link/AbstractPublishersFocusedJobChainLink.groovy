@@ -10,27 +10,31 @@ abstract class AbstractPublishersFocusedJobChainLink<P extends Project> implemen
 
     protected final static boolean ON_SAME_NODE_DISABLED = false
 
-    private final JobRef<P> to
+    private final List<JobRef<P>> to
     protected final boolean onSameNode
 
     protected AbstractPublishersFocusedJobChainLink(JobRef<P> to, boolean onSameNode) {
+        this([checkNotNull(to)], onSameNode)
+    }
+
+    protected AbstractPublishersFocusedJobChainLink(List<JobRef<P>> to, boolean onSameNode) {
         this.to = checkNotNull(to)
         this.onSameNode = onSameNode
     }
 
     @Override
     JobRef getEnd() {
-        return to
+        return to.last()
     }
 
     @Override
     void configure(Job linkStartJob, P project) {
-        def linkEndJobName = to.getJobName(project)
-        Closure configurer = publisherClosureFor(linkEndJobName)
+        def linkEndJobsName = to.collect( {it.getJobName(project)}).join(",")
+        Closure configurer = publisherClosureFor(linkEndJobsName)
         linkStartJob.with {
             publishers configurer
         }
     }
 
-    abstract protected Closure publisherClosureFor(String linkEndJobName)
+    abstract protected Closure publisherClosureFor(String linkEndJobsName)
 }
