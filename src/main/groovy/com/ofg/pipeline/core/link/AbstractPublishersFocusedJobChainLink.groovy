@@ -18,7 +18,8 @@ abstract class AbstractPublishersFocusedJobChainLink<P extends Project> implemen
     }
 
     protected AbstractPublishersFocusedJobChainLink(List<JobRef<P>> to, boolean onSameNode) {
-        this.to = checkNotNull(to)
+        checkNotNull(to) && to.collect( {checkNotNull(it, 'job can not be null')})
+        this.to = to
         this.onSameNode = onSameNode
     }
 
