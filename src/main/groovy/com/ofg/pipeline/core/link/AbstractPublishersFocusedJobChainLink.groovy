@@ -25,7 +25,7 @@ abstract class AbstractPublishersFocusedJobChainLink<P extends Project> implemen
 
     @Override
     JobRef getEnd() {
-        return to.last()
+        return to.first()
     }
 
     @Override
