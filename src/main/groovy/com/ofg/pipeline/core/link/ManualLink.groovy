@@ -7,15 +7,17 @@ import javaposse.jobdsl.dsl.helpers.publisher.PublisherContext
 class ManualLink<P extends Project> extends AbstractPublishersFocusedJobChainLink<P> {
 
     static <P extends Project> ManualLink<P> manual(JobRef<P> to) {
-        new ManualLink<P>(to, ON_SAME_NODE_DISABLED)
+        return new ManualLink<P>(to, [:], null, ON_SAME_NODE_DISABLED)
     }
 
-    private ManualLink(JobRef<P> to, boolean onSameNode) {
-        super(to, onSameNode)
+    private ManualLink(JobRef<P> to, Map<String, String> predefinedProperties, String propertiesFileName, boolean onSameNode) {
+        super(to, predefinedProperties, propertiesFileName, onSameNode)
     }
 
-    ManualLink<P> onSameNode(boolean onSameNode = true) {
-        return new ManualLink<P>(end, onSameNode)
+    @Override
+    protected AbstractPublishersFocusedJobChainLink<P> createLink(JobRef<P> to, Map<String, String> predefinedProperties, String propertiesFileName,
+                                                                  boolean onSameNode) {
+        return new ManualLink<>(to, predefinedProperties, propertiesFileName, onSameNode)
     }
 
     @Override
@@ -23,15 +25,9 @@ class ManualLink<P extends Project> extends AbstractPublishersFocusedJobChainLin
         return {
             (delegate as PublisherContext).with {
                 buildPipelineTrigger(linkEndJobName) {
-                    parameters {
-                        currentBuild()
-                        if (onSameNode) {
-                            sameNode()
-                        }
-                    }
+                    parameters triggerParameters()
                 }
             }
         }
     }
-
 }
