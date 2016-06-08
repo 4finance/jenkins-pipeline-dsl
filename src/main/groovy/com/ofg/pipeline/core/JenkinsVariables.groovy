@@ -1,5 +1,7 @@
 package com.ofg.pipeline.core
 
+import static java.lang.Integer.valueOf
+
 
 class JenkinsVariables {
     static JenkinsVariables from(Script script) {
@@ -36,6 +38,11 @@ class JenkinsVariables {
     String get(Variable variable, String defaultValue) {
         def name = variable.name()
         return variables.containsKey(name) ? variables[name] : defaultValue
+    }
+
+    int getInt(Variable variable, int defaultValue) {
+        def name = variable.name()
+        return variables.containsKey(name) ? valueOf(variables[name]) : defaultValue
     }
 
     boolean getBoolean(Variable variable, boolean defaultValue) {
