@@ -15,7 +15,6 @@ language: groovy
 jdk:
 - oraclejdk8
 
-
 env:
   global:
   - SKIP_RELEASE=true
