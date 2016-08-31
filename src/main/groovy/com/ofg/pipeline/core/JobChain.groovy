@@ -4,6 +4,8 @@ import com.ofg.pipeline.core.link.AutoLink
 import com.ofg.pipeline.core.link.JobChainLink
 import javaposse.jobdsl.dsl.Job
 
+import java.util.function.Consumer
+
 class JobChain<P extends Project> {
 
     static <P extends Project> JobChain<P> of(JobRef<P> startJob) {
@@ -15,6 +17,13 @@ class JobChain<P extends Project> {
 
     private JobChain(JobRef<P> start) {
         this.start = start
+    }
+
+    JobChain<P> then(Optional<JobRef<P>> optionalJob) {
+        optionalJob.ifPresent({
+            return then(optionalJob.get())
+        } as Consumer<? super JobRef<P>>)
+        return this
     }
 
     JobChain<P> then(JobRef<P> job) {
