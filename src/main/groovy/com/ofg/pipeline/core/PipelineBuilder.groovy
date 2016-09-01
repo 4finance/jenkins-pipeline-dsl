@@ -3,6 +3,8 @@ package com.ofg.pipeline.core
 import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
 
+import java.util.function.Consumer
+
 class PipelineBuilder<P extends Project> {
 
     private final JobBuilder<P> jobBuilder
@@ -28,10 +30,13 @@ class PipelineBuilder<P extends Project> {
     private class StageContext {
         private String stageName
 
-        //TODO use the P type instead of ? extends Project in a way that does not trigger type warnings in IDEA
-        //(probably impossible without Groovy 2.4)
-        //TODO in the meantime, maybe inspect he generic type in runtime and fail fast?
-        void job(JobDefinition<? extends Job, ? extends Project> jobDefinition) {
+        void job(Optional<JobDefinition<? extends Job, P>> optionalJobDefinition) {
+            optionalJobDefinition.ifPresent({
+                job(optionalJobDefinition.get())
+            } as Consumer<? super JobDefinition<? extends Job, P>>)
+        }
+
+        void job(JobDefinition<? extends Job, P> jobDefinition) {
             jobBuilder.job(jobDefinition)
             stageNamesForJobs[jobDefinition] = stageName
         }
