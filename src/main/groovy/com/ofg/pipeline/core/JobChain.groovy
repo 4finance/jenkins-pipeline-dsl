@@ -30,6 +30,11 @@ class JobChain<P extends Project> {
         return then(AutoLink.auto(job))
     }
 
+    JobChain<P> then(List<JobRef<P>> jobs) {
+        jobs.each { then(it) }
+        return this
+    }
+
     JobChain<P> then(JobChainLink link) {
         links.add(link)
         return this
