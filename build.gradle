@@ -5,7 +5,7 @@ buildscript {
     }
     dependencies {
         classpath "com.ofg:micro-common-release:0.1.18"
-        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.6"
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3"
         classpath "com.netflix.nebula:gradle-extra-configurations-plugin:3.0.3"
     }
     dependencies {
@@ -46,18 +46,18 @@ repositories {
 }
 
 ext {
-    jenkinsVersion = '1.609.2'
-    jobDslVersion = '1.44'
+    jenkinsVersion = '2.31'
+    jobDslVersion = '1.53'
 }
 
 dependencies {
-    provided 'org.codehaus.groovy:groovy-all:1.8.9'
-    provided 'com.google.guava:guava:14.0'
+    provided 'org.codehaus.groovy:groovy-all:2.4.7'
+    provided 'com.google.guava:guava:20.0'
     provided("org.jenkins-ci.plugins:job-dsl-core:${project.ext.jobDslVersion}") {
         exclude module: 'groovy-all'
     }
 
-    testCompile('org.spockframework:spock-core:0.7-groovy-1.8') {
+    testCompile('org.spockframework:spock-core:1.1-groovy-2.4-rc-2') {
         exclude module: 'groovy-all'
     }
 }
