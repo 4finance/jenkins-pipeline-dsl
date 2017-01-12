@@ -17,7 +17,7 @@ class JobBuilder<P extends Project> {
         this.jobFactory = new JobFactory(dslFactory)
     }
 
-    protected Map<JobType, JobDefinition> getJobs() {
+    protected Map<JobType, ? extends JobDefinition> getJobs() {
         return jobs
     }
 

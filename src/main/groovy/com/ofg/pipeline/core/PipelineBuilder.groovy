@@ -27,11 +27,11 @@ class PipelineBuilder<P extends Project> {
         stageContext.with(closure)
     }
 
-    //Cannot be private as an external closure is called in its context
+    //Cannot be private as an external closure is called in its context - #21
     class StageContext {
         private String stageName
 
-        void job(Optional<JobDefinition<? extends Job, P>> optionalJobDefinition) {
+        void job(Optional<? extends JobDefinition<? extends Job, P>> optionalJobDefinition) {
             optionalJobDefinition.ifPresent({
                 job(optionalJobDefinition.get())
             } as Consumer<? super JobDefinition<? extends Job, P>>)

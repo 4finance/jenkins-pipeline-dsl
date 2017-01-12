@@ -19,7 +19,7 @@ class JobChain<P extends Project> {
         this.start = start
     }
 
-    JobChain<P> then(Optional<JobRef<P>> optionalJob) {
+    JobChain<P> then(Optional<? extends JobRef<P>> optionalJob) {
         optionalJob.ifPresent({
             return then(optionalJob.get())
         } as Consumer<? super JobRef<P>>)
@@ -30,7 +30,7 @@ class JobChain<P extends Project> {
         return then(AutoLink.auto(job))
     }
 
-    JobChain<P> then(List<JobRef<P>> jobs) {
+    JobChain<P> then(List<? extends JobRef<P>> jobs) {
         jobs.each { then(it) }
         return this
     }
@@ -40,7 +40,7 @@ class JobChain<P extends Project> {
         return this
     }
 
-    void linkJobs(Map<JobType, Job> jobsByType, P project) {
+    void linkJobs(Map<JobType, ? extends Job> jobsByType, P project) {
         Job linkStartJob = getJob(jobsByType, start.jobType)
         links.each { JobChainLink<P> link ->
             link.configure(linkStartJob, project)
@@ -48,7 +48,7 @@ class JobChain<P extends Project> {
         }
     }
 
-    private Job getJob(Map<JobType, Job> jobsByType, JobType jobType) {
+    private Job getJob(Map<JobType, ? extends Job> jobsByType, JobType jobType) {
         Job linkStartJob = jobsByType[jobType]
         assert linkStartJob, "Attempted to configure links starting from job of type [$jobType], but no such job is defined"
         linkStartJob
