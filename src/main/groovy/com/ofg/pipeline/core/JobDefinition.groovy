@@ -1,11 +1,13 @@
 package com.ofg.pipeline.core
 
 import com.google.common.base.CaseFormat
+import groovy.transform.CompileStatic
 import javaposse.jobdsl.dsl.Job
 
+@CompileStatic
 abstract class JobDefinition<T extends Job, P extends Project> implements JobRef<P> {
 
-    private static final JOB_TYPE_FRAGMENT_SEPARATOR = '-'
+    private static final String JOB_TYPE_FRAGMENT_SEPARATOR = '-'
 
     abstract Class<T> getJobClass()
 

@@ -1,5 +1,6 @@
 package com.ofg.pipeline.core
 
+import groovy.transform.CompileStatic
 import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
 import javaposse.jobdsl.dsl.jobs.BuildFlowJob
@@ -10,6 +11,7 @@ import javaposse.jobdsl.dsl.jobs.WorkflowJob
 
 import static com.google.common.base.Preconditions.checkNotNull
 
+@CompileStatic
 class JobFactory {
 
     private final DslFactory dslFactory

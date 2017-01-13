@@ -3,8 +3,10 @@ package com.ofg.pipeline.core.link
 import com.ofg.pipeline.core.JobRef
 import com.ofg.pipeline.core.Project
 import com.ofg.pipeline.core.TriggerCondition
+import groovy.transform.CompileStatic
 import javaposse.jobdsl.dsl.helpers.publisher.PublisherContext
 
+@CompileStatic
 class AutoLink<P extends Project> extends AbstractPublishersFocusedJobChainLink<P> {
 
     private final TriggerCondition triggerCondition

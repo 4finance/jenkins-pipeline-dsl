@@ -2,8 +2,10 @@ package com.ofg.pipeline.core.link
 
 import com.ofg.pipeline.core.JobRef
 import com.ofg.pipeline.core.Project
+import groovy.transform.CompileStatic
 import javaposse.jobdsl.dsl.helpers.publisher.PublisherContext
 
+@CompileStatic
 class ManualLink<P extends Project> extends AbstractPublishersFocusedJobChainLink<P> {
 
     static <P extends Project> ManualLink<P> manual(JobRef<P> to) {

@@ -2,8 +2,10 @@ package com.ofg.pipeline.core.link
 
 import com.ofg.pipeline.core.JobRef
 import com.ofg.pipeline.core.Project
+import groovy.transform.CompileStatic
 import javaposse.jobdsl.dsl.Job
 
+@CompileStatic
 class CombinedJobChainLink<P extends Project> implements JobChainLink<P> {
     
     static <P extends Project> CombinedJobChainLink<P> of(JobChainLink<P>... links) {
