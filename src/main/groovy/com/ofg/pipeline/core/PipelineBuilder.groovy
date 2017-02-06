@@ -1,5 +1,6 @@
 package com.ofg.pipeline.core
 
+import groovy.transform.CompileStatic
 import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
 

@@ -1,9 +1,11 @@
 package com.ofg.pipeline.core
 
+import groovy.transform.CompileStatic
 import javaposse.jobdsl.dsl.DslFactory
 
 import static com.google.common.base.Preconditions.checkNotNull
 
+@CompileStatic
 class PipelineTemplateBuilder {
 
     private final DslFactory dslFactory

@@ -1,8 +1,10 @@
 package com.ofg.pipeline.core
 
+import groovy.transform.CompileStatic
+
 import static java.lang.Integer.valueOf
 
-
+@CompileStatic
 class JenkinsVariables {
     static JenkinsVariables from(Script script) {
         from(script.binding.variables)

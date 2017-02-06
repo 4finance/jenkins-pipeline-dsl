@@ -3,11 +3,13 @@ package com.ofg.pipeline.core.link
 import com.ofg.pipeline.core.JobRef
 import com.ofg.pipeline.core.Project
 import com.ofg.pipeline.core.Variable
+import groovy.transform.CompileStatic
 import javaposse.jobdsl.dsl.Job
 import javaposse.jobdsl.dsl.helpers.common.DownstreamTriggerParameterContext
 
 import static com.google.common.base.Preconditions.checkNotNull
 
+@CompileStatic
 abstract class AbstractPublishersFocusedJobChainLink<P extends Project> implements JobChainLink<P> {
 
     protected final static boolean ON_SAME_NODE_DISABLED = false

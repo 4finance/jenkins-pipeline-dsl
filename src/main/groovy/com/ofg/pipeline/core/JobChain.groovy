@@ -2,10 +2,12 @@ package com.ofg.pipeline.core
 
 import com.ofg.pipeline.core.link.AutoLink
 import com.ofg.pipeline.core.link.JobChainLink
+import groovy.transform.CompileStatic
 import javaposse.jobdsl.dsl.Job
 
 import java.util.function.Consumer
 
+@CompileStatic
 class JobChain<P extends Project> {
 
     static <P extends Project> JobChain<P> of(JobRef<P> startJob) {
