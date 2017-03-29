@@ -14,6 +14,7 @@ buildscript {
 }
 
 apply from: "${rootProject.buildDir}/release/gradle/version.gradle"
+apply from: "${rootProject.buildDir}/release/gradle/release.gradle"
 
 scmVersion {
     tag {
@@ -22,44 +23,49 @@ scmVersion {
     }
 }
 
-group = "io.fourfinanceit.pipeline"
-version = scmVersion.version
+allprojects {
+    
+    repositories {
+        maven { url 'http://repo.jenkins-ci.org/releases/' }
+        jcenter()
+        mavenCentral()
+    }
 
-apply plugin: 'groovy'
-apply from: "${rootProject.buildDir}/release/gradle/publish.gradle"
-apply from: "${rootProject.buildDir}/release/gradle/release.gradle"
-
-bintray {
-    pkg {
-        repo = 'jenkins-pipeline'
-        vcsUrl = 'https://github.com/4finance/jenkins-pipeline-dsl.git'
-        labels = ['jenkins', 'pipeline', 'ci', 'cd', 'continuous-integration', 'continuous-delivery']
+    ext {
+        jenkinsVersion = '2.31'
+        jobDslVersion = '1.53'
     }
 }
 
-apply plugin: 'nebula.provided-base'
+subprojects {
 
-repositories {
-    maven { url 'http://repo.jenkins-ci.org/releases/' }
-    jcenter()
-    mavenCentral()
-}
+    apply plugin: 'groovy'
+    apply plugin: 'nebula.provided-base'
+    apply from: "${rootProject.buildDir}/release/gradle/publish.gradle"
 
-ext {
-    jenkinsVersion = '2.31'
-    jobDslVersion = '1.53'
-}
+    group = "io.fourfinanceit.pipeline"
+    version = scmVersion.version
 
-dependencies {
-    provided 'org.codehaus.groovy:groovy-all:2.4.7'
-    provided 'com.google.guava:guava:20.0'
-    provided("org.jenkins-ci.plugins:job-dsl-core:${project.ext.jobDslVersion}") {
-        exclude module: 'groovy-all'
+
+    bintray {
+        pkg {
+            repo = 'jenkins-pipeline'
+            vcsUrl = 'https://github.com/4finance/jenkins-pipeline-dsl.git'
+            labels = ['jenkins', 'pipeline', 'ci', 'cd', 'continuous-integration', 'continuous-delivery']
+        }
     }
 
-    testCompile('org.spockframework:spock-core:1.1-groovy-2.4-rc-2') {
-        exclude module: 'groovy-all'
-    }
-}
+    dependencies {
+        provided 'org.codehaus.groovy:groovy-all:2.4.7'
+        provided 'com.google.guava:guava:20.0'
+        provided("org.jenkins-ci.plugins:job-dsl-core:${project.ext.jobDslVersion}") {
+            exclude module: 'groovy-all'
+        }
 
-bintrayUpload.dependsOn 'build'
+        testCompile('org.spockframework:spock-core:1.1-groovy-2.4-rc-2') {
+            exclude module: 'groovy-all'
+        }
+    }
+
+    bintrayUpload.dependsOn 'build'
+}
