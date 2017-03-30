@@ -13,6 +13,7 @@ buildscript {
     }
 }
 
+apply plugin: 'base'
 apply from: "${rootProject.buildDir}/release/gradle/version.gradle"
 apply from: "${rootProject.buildDir}/release/gradle/release.gradle"
 
@@ -62,6 +63,7 @@ subprojects {
             exclude module: 'groovy-all'
         }
 
+        testCompile 'info.solidsoft.spock:spock-global-unroll:0.5.1'
         testCompile('org.spockframework:spock-core:1.1-groovy-2.4-rc-2') {
             exclude module: 'groovy-all'
         }

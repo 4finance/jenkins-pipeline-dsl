@@ -1,2 +1,3 @@
 rootProject.name = 'jenkins-pipeline-dsl'
 include 'jenkins-pipeline-core'
+include 'jenkins-job-components'
