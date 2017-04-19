@@ -29,8 +29,6 @@ class JobBuilder<P extends Project> {
 
     void job(JobDefinition jobDefinition) {
         def jobType = jobDefinition.jobType
-        assert !jobs.containsKey(jobType),
-                "Attempted to define the same job twice. Type: [${jobType}], class: [${jobDefinition.class}]."
         jobs.put(jobType, jobDefinition)
     }
 
