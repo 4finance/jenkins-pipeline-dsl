@@ -122,12 +122,7 @@ class JobComponentSpec extends Specification {
                 it.message.contains("[Static type checking]")
             }
     }
-
-    void fooStaticTypeCheckingExceptionThrown(Throwable it) {
-        assert it.class == MultipleCompilationErrorsException
-        assert it.message.contains("[Static type checking]")
-    }
-
+    
     static class MatrixJobComponent implements JobComponent<MatrixJob> {
 
         @Override

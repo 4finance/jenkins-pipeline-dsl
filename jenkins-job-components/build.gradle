@@ -1,8 +1,9 @@
 
 dependencies {
 
-    compile project(':jenkins-pipeline-core')
+    provided project(':jenkins-pipeline-core')
     
+    testCompile project(':jenkins-pipeline-test-utils')
     testCompile 'cglib:cglib-nodep:3.2.4'
     testCompile 'org.objenesis:objenesis:1.2'
 }

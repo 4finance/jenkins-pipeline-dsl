@@ -75,7 +75,6 @@ class CronBuilder {
 
         void midnight() {
             cronExpression = '@midnight'
-
         }
 
         void atEveryHour() {

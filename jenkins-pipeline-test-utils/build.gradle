@@ -1,0 +1,6 @@
+
+dependencies {
+
+    provided 'org.spockframework:spock-core:1.1-groovy-2.4-rc-2'
+    provided 'info.solidsoft.spock:spock-global-unroll:0.5.1'
+}

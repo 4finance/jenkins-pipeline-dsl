@@ -1,178 +1,143 @@
 package com.ofg.job.component.notifications
 
 import javaposse.jobdsl.dsl.helpers.publisher.ExtendedEmailTriggerContext
+import javaposse.jobdsl.dsl.helpers.publisher.ExtendedEmailTriggersContext
 
 enum EmailNotificationTrigger {
-
-    ABORTED{
+    
+    ABORTED {
         @Override
-        Closure buildTrigger(@DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
-            return {
-                aborted(cfg)
-            }
+        void buildTrigger(ExtendedEmailTriggersContext context, @DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
+            context.aborted(cfg)
         }
     },
-
-    ALWAYS{
+    
+    ALWAYS {
         @Override
-        Closure buildTrigger(@DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
-            return {
-                always(cfg)
-            }
+        void buildTrigger(ExtendedEmailTriggersContext context, @DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
+            context.always(cfg)
         }
     },
-
-    BEFORE_BUILD{
-
+    
+    BEFORE_BUILD {
+        
         @Override
-        Closure buildTrigger(@DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
-            return {
-                beforebuild(cfg)
-            }
+        void buildTrigger(ExtendedEmailTriggersContext context, @DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
+            context.beforebuild(cfg)
         }
     },
-
-    FIRST_FAILURE{
-
+    
+    FIRST_FAILURE {
+        
         @Override
-        Closure buildTrigger(@DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
-            return {
-                firstfailure(cfg)
-            }
+        void buildTrigger(ExtendedEmailTriggersContext context, @DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
+            context.firstfailure(cfg)
         }
     },
-
-    SECOND_FAILURE{
-
+    
+    SECOND_FAILURE {
+        
         @Override
-        Closure buildTrigger(@DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
-            return {
-                secondfailure(cfg)
-            }
+        void buildTrigger(ExtendedEmailTriggersContext context, @DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
+            context.secondfailure(cfg)
         }
     },
-
-    FAILURE{
-
+    
+    FAILURE {
+        
         @Override
-        Closure buildTrigger(@DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
-            return {
-                failure(cfg)
-            }
+        void buildTrigger(ExtendedEmailTriggersContext context, @DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
+            context.failure(cfg)
         }
     },
-
-    STILL_FAILING{
-
+    
+    STILL_FAILING {
+        
         @Override
-        Closure buildTrigger(@DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
-            return {
-                stillfailing(cfg)
-            }
+        void buildTrigger(ExtendedEmailTriggersContext context, @DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
+            context.stillfailing(cfg)
         }
     },
-
-    FIXED{
-
+    
+    FIXED {
+        
         @Override
-        Closure buildTrigger(@DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
-            return {
-                fixed(cfg)
-            }
+        void buildTrigger(ExtendedEmailTriggersContext context, @DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
+            context.fixed(cfg)
         }
     },
-
-    NOT_BUILT{
-
+    
+    NOT_BUILT {
+        
         @Override
-        Closure buildTrigger(@DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
-            return {
-                notbuilt(cfg)
-            }
+        void buildTrigger(ExtendedEmailTriggersContext context, @DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
+            context.notbuilt(cfg)
         }
     },
-
-
-    STATUS_CHANGED{
-
+    
+    STATUS_CHANGED {
+        
         @Override
-        Closure buildTrigger(@DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
-            return {
-                statuschanged(cfg)
-            }
+        void buildTrigger(ExtendedEmailTriggersContext context, @DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
+            context.statuschanged(cfg)
         }
     },
-
-
-    SUCCESS{
-
+    
+    SUCCESS {
+        
         @Override
-        Closure buildTrigger(@DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
-            return {
-                success(cfg)
-            }
+        void buildTrigger(ExtendedEmailTriggersContext context, @DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
+            context.success(cfg)
         }
     },
-
-    IMPROVEMENT{
-
+    
+    IMPROVEMENT {
+        
         @Override
-        Closure buildTrigger(@DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
-            return {
-                improvement(cfg)
-            }
+        void buildTrigger(ExtendedEmailTriggersContext context, @DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
+            context.improvement(cfg)
         }
     },
-
-    REGRESSION{
-
+    
+    REGRESSION {
+        
         @Override
-        Closure buildTrigger(@DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
-            return {
-                regression(cfg)
-            }
+        void buildTrigger(ExtendedEmailTriggersContext context, @DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
+            context.regression(cfg)
         }
     },
-
-    UNSTABLE{
-
+    
+    UNSTABLE {
+        
         @Override
-        Closure buildTrigger(@DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
-            return {
-                unstable(cfg)
-            }
+        void buildTrigger(ExtendedEmailTriggersContext context, @DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
+            context.unstable(cfg)
         }
     },
-
-    FIRST_UNSTABLE{
-
+    
+    FIRST_UNSTABLE {
+        
         @Override
-        Closure buildTrigger(@DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
-            return {
-                firstunstable(cfg)
-            }
+        void buildTrigger(ExtendedEmailTriggersContext context, @DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
+            context.firstUnstable(cfg)
         }
     },
-
-    STILL_UNSTABLE{
-
+    
+    STILL_UNSTABLE {
+        
         @Override
-        Closure buildTrigger(@DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
-            return {
-                stillunstable(cfg)
-            }
+        void buildTrigger(ExtendedEmailTriggersContext context, @DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
+            context.stillUnstable(cfg)
         }
     },
-
-    FIXED_UNHEALTHY{
-
+    
+    FIXED_UNHEALTHY {
+        
         @Override
-        Closure buildTrigger(@DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
-            return {
-                fixedunhealthy(cfg)
-            }
+        void buildTrigger(ExtendedEmailTriggersContext context, @DelegatesTo(ExtendedEmailTriggerContext) Closure cfg) {
+            context.fixedUnhealthy(cfg)
         }
     };
-
-    abstract Closure buildTrigger(@DelegatesTo(ExtendedEmailTriggerContext) Closure cfg);
+    
+    abstract void buildTrigger(ExtendedEmailTriggersContext context, @DelegatesTo(ExtendedEmailTriggerContext) Closure cfg);
 }
