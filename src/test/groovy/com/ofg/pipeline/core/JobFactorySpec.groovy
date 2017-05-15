@@ -6,7 +6,9 @@ import javaposse.jobdsl.dsl.JobParent
 import javaposse.jobdsl.dsl.MemoryJobManagement
 import javaposse.jobdsl.dsl.jobs.BuildFlowJob
 import javaposse.jobdsl.dsl.jobs.FreeStyleJob
+import javaposse.jobdsl.dsl.jobs.IvyJob
 import javaposse.jobdsl.dsl.jobs.MatrixJob
+import javaposse.jobdsl.dsl.jobs.MavenJob
 import javaposse.jobdsl.dsl.jobs.MultiJob
 import javaposse.jobdsl.dsl.jobs.WorkflowJob
 import spock.lang.Specification
@@ -25,7 +27,7 @@ class JobFactorySpec extends Specification {
             jobClass.isInstance(jobFactory.create(jobClass, 'Job name'))
 
         where:
-            jobClass << [Job, FreeStyleJob, BuildFlowJob, MatrixJob, WorkflowJob, MultiJob]
+            jobClass << [Job, FreeStyleJob, BuildFlowJob, MatrixJob, WorkflowJob, MultiJob, MavenJob, IvyJob]
     }
 
     def 'should throw an exception for unsupported job subtype'() {
