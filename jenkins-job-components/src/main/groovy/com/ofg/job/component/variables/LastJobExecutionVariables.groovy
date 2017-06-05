@@ -3,6 +3,10 @@ package com.ofg.job.component.variables
 import com.ofg.job.component.JobComponent
 import javaposse.jobdsl.dsl.Job
 
+/**
+ * @author Szymon Homa
+ * @author Marek Kapowicki
+ */
 class LastJobExecutionVariables implements JobComponent<Job> {
 
     private final Collection<String> variablesToImport

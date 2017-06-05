@@ -4,6 +4,10 @@ import com.ofg.job.component.JobComponent
 import groovy.transform.CompileStatic
 import javaposse.jobdsl.dsl.Job
 
+/**
+ * @author Tomasz Krzemiński
+ * @author Konrad Kamil Dobrzyński
+ */
 @CompileStatic
 class HtmlReport implements JobComponent<Job> {
 

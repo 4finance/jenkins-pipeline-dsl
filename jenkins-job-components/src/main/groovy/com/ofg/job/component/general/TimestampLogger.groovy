@@ -4,6 +4,9 @@ import com.ofg.job.component.JobComponent
 import groovy.transform.CompileStatic
 import javaposse.jobdsl.dsl.Job
 
+/**
+ * @author Marcin Zajączkowski
+ */
 @CompileStatic
 class TimestampLogger implements JobComponent<Job> {
 

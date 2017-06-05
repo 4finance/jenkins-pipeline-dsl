@@ -11,6 +11,11 @@ import javaposse.jobdsl.dsl.helpers.publisher.ExtendedEmailTriggersContext
 import static com.ofg.job.component.notifications.EmailNotificationTrigger.*
 import static com.ofg.job.component.notifications.RecipientType.*
 
+/**
+ * @author Szymon Homa
+ * @author Artur Gajowy
+ * @author Marcin Zajączkowski
+ */
 class EmailNotifications implements JobComponent<Job> {
     
     private final EmailNotificationsConfiguration configuration

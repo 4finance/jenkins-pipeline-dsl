@@ -4,6 +4,8 @@ import javaposse.jobdsl.dsl.Job;
 
 /**
  * Interface for configurations applicable on Job.
+ * @author Szymon Homa
+ * @author Marcin Zajączkowski
  */
 public interface JobComponent<J extends Job> {
 

@@ -3,6 +3,10 @@ package com.ofg.job.component.reports
 import com.ofg.job.component.JobComponent
 import javaposse.jobdsl.dsl.Job
 
+/**
+ * @author Konrad Kamil Dobrzyński
+ * @author Marek Kapowicki
+ */
 class JUnitReport implements JobComponent<Job> {
 
     private static final String DEFAULT_GRADLE_JUNIT_XML_REPORTS_PATH = '**/build/test-results/**/*.xml'

@@ -3,6 +3,10 @@ package com.ofg.job.component.triggers
 import com.ofg.job.component.JobComponent
 import javaposse.jobdsl.dsl.Job
 
+/**
+ * @author Szymon Homa
+ * @author Konrad Kamil Dobrzyński
+ */
 class PollSCMTrigger implements JobComponent<Job> {
 
     private final String cronDef

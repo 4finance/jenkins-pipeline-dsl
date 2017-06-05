@@ -3,6 +3,10 @@ package com.ofg.job.component.triggers
 import spock.lang.Specification
 import spock.lang.Unroll
 
+/**
+ * @author Adam Wojszczyk
+ * @author Szymon Homa
+ */
 class CronBuilderSpec extends Specification {
     private CronBuilder builder = new CronBuilder()
 
@@ -11,7 +15,7 @@ class CronBuilderSpec extends Specification {
             builder.every(5).minutes()
 
         when:
-            String cron = builder.build();
+            String cron = builder.build()
 
         then:
             cron == 'H/5 * * * *'
@@ -22,7 +26,7 @@ class CronBuilderSpec extends Specification {
             builder.every(5).hours()
 
         when:
-            String cron = builder.build();
+            String cron = builder.build()
 
         then:
             cron == 'H H/5 * * *'
@@ -32,7 +36,7 @@ class CronBuilderSpec extends Specification {
         given:
             builder
                     .withCronExpression()
-                    .midnight()
+                    .atMidnight()
 
         when:
             String cron = builder.build()

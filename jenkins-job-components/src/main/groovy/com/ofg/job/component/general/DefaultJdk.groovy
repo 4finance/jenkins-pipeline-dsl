@@ -3,6 +3,9 @@ package com.ofg.job.component.general
 import com.ofg.job.component.JobComponent
 import javaposse.jobdsl.dsl.Job
 
+/**
+ * @author Konrad Kamil Dobrzyński
+ */
 class DefaultJdk implements JobComponent<Job> {
 
     private static final String LATEST_JDK_8 = 'latest_java8'

@@ -4,10 +4,11 @@ import com.ofg.job.component.JobComponent
 import groovy.transform.CompileStatic
 import javaposse.jobdsl.dsl.Job
 
+/**
+ * Enables concurrent job execution
+ * @author Marek Kapowicki
+ */
 @CompileStatic
-/*
-* Enables concurrent job execution
-* */
 class ConcurrentJob implements JobComponent<Job> {
 
     static ConcurrentJob enableConcurrentExecution() {

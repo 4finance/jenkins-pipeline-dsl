@@ -8,6 +8,10 @@ import javaposse.jobdsl.dsl.jobs.MultiJob
 import org.codehaus.groovy.control.MultipleCompilationErrorsException
 import spock.lang.Specification
 
+/**
+ * @author Marcin Zajączkowski
+ * @author Szymon Homa
+ */
 class JobComponentSpec extends Specification {
 
     @CompileStatic

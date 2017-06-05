@@ -1,8 +1,28 @@
 package com.ofg.job.component.triggers
 
+import groovy.transform.CompileStatic
 import groovy.transform.PackageScope
 
+/**
+ * This class grants dsl support for constructing cron strings, that are mostly used
+ * for CI systems. It allows definitions as:
+ *
+ * defineAs {
+ *    every 5 minutes()
+ * }
+ *
+ * defineAs {
+ *     withCronExpression() atMidnight()
+ * }
+ *
+ * all of the above is checked at compilation time
+ *
+ * @author Szymon Homa
+ * @author Marek Kapowicki
+ * @author Adam Wojszczyk
+ */
 class CronBuilder {
+    
     private CronExpression cronExpression
     private TimeUnitBuilder timeUnitBuilder
 
@@ -73,7 +93,7 @@ class CronBuilder {
 
         private String cronExpression
 
-        void midnight() {
+        void atMidnight() {
             cronExpression = '@midnight'
         }
 
