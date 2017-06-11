@@ -3,6 +3,9 @@ package com.ofg.job.component.notifications
 import groovy.transform.CompileStatic
 import groovy.transform.PackageScope
 
+/**
+ * @author Marek Kapowicki
+ */
 @CompileStatic
 class EmailNotificationsConfiguration {
 

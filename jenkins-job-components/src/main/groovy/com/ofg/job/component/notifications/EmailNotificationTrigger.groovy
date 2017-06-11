@@ -3,6 +3,9 @@ package com.ofg.job.component.notifications
 import javaposse.jobdsl.dsl.helpers.publisher.ExtendedEmailTriggerContext
 import javaposse.jobdsl.dsl.helpers.publisher.ExtendedEmailTriggersContext
 
+/**
+ * @author Szymon Homa
+ */
 enum EmailNotificationTrigger {
     
     ABORTED {

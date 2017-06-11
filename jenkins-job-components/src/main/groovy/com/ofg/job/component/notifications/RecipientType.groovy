@@ -1,8 +1,10 @@
 package com.ofg.job.component.notifications
 
-
 import javaposse.jobdsl.dsl.helpers.publisher.ExtendedEmailSendToContext;
 
+/**
+ * @author Szymon Homa
+ */
 enum RecipientType {
     
     CULPRITS {

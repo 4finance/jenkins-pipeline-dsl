@@ -4,11 +4,11 @@ import com.ofg.job.component.JobComponent
 import groovy.transform.CompileStatic
 import javaposse.jobdsl.dsl.Job
 
-@CompileStatic
 /**
  * Allows adding some additional output for the task, by utilizing system shell.
- * right now it uses simple "echo"
+ * it does that by executing "echo" command in shell
  */
+@CompileStatic
 class ConsoleLogger implements JobComponent<Job> {
 
     private final String command;
