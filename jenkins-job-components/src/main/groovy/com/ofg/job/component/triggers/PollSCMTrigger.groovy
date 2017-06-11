@@ -4,15 +4,19 @@ import com.ofg.job.component.JobComponent
 import javaposse.jobdsl.dsl.Job
 
 /**
+ * Enables scm polling on intervals defined by a given cron
+ *
  * @author Szymon Homa
  * @author Konrad Kamil Dobrzyński
  */
 class PollSCMTrigger implements JobComponent<Job> {
 
+    public static final PollSCMTrigger NONE = new PollSCMTrigger(null)
+    
     private final String cronDef
 
     static PollSCMTrigger none() {
-        return new PollSCMTrigger(null)
+        return NONE
     }
 
     static PollSCMTrigger onCron(@DelegatesTo(CronBuilder) Closure cronDefinition) {

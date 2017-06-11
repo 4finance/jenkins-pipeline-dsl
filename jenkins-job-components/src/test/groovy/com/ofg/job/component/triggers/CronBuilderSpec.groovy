@@ -3,6 +3,10 @@ package com.ofg.job.component.triggers
 import spock.lang.Specification
 import spock.lang.Unroll
 
+import static com.ofg.job.component.triggers.CronBuilder.CronExpression.everyHour
+import static com.ofg.job.component.triggers.CronBuilder.CronExpression.hour
+import static com.ofg.job.component.triggers.CronBuilder.CronExpression.midnight
+
 /**
  * @author Adam Wojszczyk
  * @author Szymon Homa
@@ -34,9 +38,7 @@ class CronBuilderSpec extends Specification {
 
     def 'should generate proper cron when midnight expression used'() {
         given:
-            builder
-                    .withCronExpression()
-                    .atMidnight()
+            builder.at(midnight())
 
         when:
             String cron = builder.build()
@@ -47,9 +49,7 @@ class CronBuilderSpec extends Specification {
 
     def 'should generate proper cron when every hour expression used'() {
         given:
-            builder
-                    .withCronExpression()
-                    .atEveryHour()
+            builder.at(everyHour())
 
         when:
             String cron = builder.build()
@@ -61,18 +61,16 @@ class CronBuilderSpec extends Specification {
     @Unroll
     def 'should generate proper cron when at specific hour: #hour expression used'() {
         given:
-            builder
-                    .withCronExpression()
-                    .atHour(hour)
+            builder.at(hour(h))
 
         when:
             String cron = builder.build()
 
         then:
-            cron == "H $hour * * *".toString()
+            cron == "H $h * * *".toString()
 
         where:
-            hour << [6, 12, 18]
+            h << [6, 12, 18]
     }
 
     def 'should throw exception when nothing was invoked'() {

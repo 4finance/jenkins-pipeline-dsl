@@ -12,7 +12,7 @@ import groovy.transform.PackageScope
  * }
  *
  * defineAs {
- *     withCronExpression() atMidnight()
+ *     at midnight()
  * }
  *
  * all of the above is checked at compilation time
@@ -42,9 +42,8 @@ class CronBuilder {
         return timeUnitBuilder;
     }
 
-    CronExpression withCronExpression() {
-        this.cronExpression = new CronExpression()
-        return cronExpression
+    void at(CronExpression expression) {
+        this.cronExpression = expression
     }
 
     @PackageScope
@@ -92,17 +91,21 @@ class CronBuilder {
     static class CronExpression implements CronExpressionFactory {
 
         private String cronExpression
-
-        void atMidnight() {
-            cronExpression = '@midnight'
+    
+        CronExpression(String cronExpression) {
+            this.cronExpression = cronExpression
+        }
+    
+        static CronExpression midnight() {
+            return new CronExpression('@midnight')
         }
 
-        void atEveryHour() {
-            cronExpression = '@hourly'
+        static CronExpression everyHour() {
+            return new CronExpression('@hourly')
         }
 
-        void atHour(int hour) {
-            cronExpression = "H $hour * * *"
+        static CronExpression hour(int hour) {
+            return new CronExpression("H $hour * * *")
         }
 
         @Override
