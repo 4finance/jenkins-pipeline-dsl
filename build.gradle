@@ -13,9 +13,7 @@ buildscript {
     }
 }
 
-apply plugin: 'base'
 apply from: "${rootProject.buildDir}/release/gradle/version.gradle"
-apply from: "${rootProject.buildDir}/release/gradle/release.gradle"
 
 scmVersion {
     tag {
@@ -24,13 +22,18 @@ scmVersion {
     }
 }
 
+apply plugin: 'base'
+
 allprojects {
-    
+
     repositories {
         maven { url 'http://repo.jenkins-ci.org/releases/' }
         jcenter()
         mavenCentral()
     }
+    
+    group = "io.fourfinanceit.pipeline"
+    version = scmVersion.version
 
     ext {
         jenkinsVersion = '2.31'
@@ -43,9 +46,6 @@ subprojects {
     apply plugin: 'groovy'
     apply plugin: 'nebula.provided-base'
     apply from: "${rootProject.buildDir}/release/gradle/publish.gradle"
-
-    group = "io.fourfinanceit.pipeline"
-    version = scmVersion.version
 
 
     bintray {
@@ -71,3 +71,5 @@ subprojects {
 
     bintrayUpload.dependsOn 'build'
 }
+
+apply from: "${rootProject.buildDir}/release/gradle/release.gradle"
