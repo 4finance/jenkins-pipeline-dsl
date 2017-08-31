@@ -2,6 +2,7 @@ package com.ofg.pipeline.core
 
 import com.ofg.pipeline.core.link.AutoLink
 import com.ofg.pipeline.core.link.JobChainLink
+import com.ofg.pipeline.core.link.ManualLink
 import groovy.transform.CompileStatic
 import javaposse.jobdsl.dsl.Job
 
@@ -23,13 +24,24 @@ class JobChain<P extends Project> {
 
     JobChain<P> then(Optional<? extends JobRef<P>> optionalJob) {
         optionalJob.ifPresent({
-            return then(optionalJob.get())
+            then(optionalJob.get())
+        } as Consumer<? super JobRef<P>>)
+        return this
+    }
+
+    JobChain<P> thenManual(Optional<? extends JobRef<P>> optionalJob) {
+        optionalJob.ifPresent({
+            thenManual(optionalJob.get())
         } as Consumer<? super JobRef<P>>)
         return this
     }
 
     JobChain<P> then(JobRef<P> job) {
         return then(AutoLink.auto(job))
+    }
+
+    JobChain<P> thenManual(JobRef<P> job) {
+        return then(ManualLink.manual(job))
     }
 
     JobChain<P> then(List<? extends JobRef<P>> jobs) {
