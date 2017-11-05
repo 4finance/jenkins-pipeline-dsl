@@ -14,13 +14,9 @@ class ConcurrentJob implements JobComponent<Job> {
     static ConcurrentJob enableConcurrentExecution() {
         return new ConcurrentJob();
     }
-    
+
     @Override
     void applyOn(Job job) {
-        job.with {
-            wrappers {
-                concurrentBuild()
-            }
-        }
+        job.concurrentBuild()
     }
 }
